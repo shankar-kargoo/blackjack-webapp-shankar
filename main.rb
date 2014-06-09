@@ -29,21 +29,30 @@ helpers do
 
 end
 
+before do
+	@show_buttons = true
+end
+
 get '/' do
-  erb :set_name
+	if session[:player_name] 
+  	redirect '/start_game'
+	else
+		redirect '/new_player'
+	end
 end
 
-post '/save_name' do
+get '/new_player' do
+	erb :add_new_player
+end
+
+post '/new_player' do
 	session[:player_name] = params[:player_name]
-	redirect '/bet_amount'
-end
-
-get '/bet_amount' do
-	erb :bet_amount
+	session[:player_amount] = params[:amount]
+	redirect '/start_game'
 end
 
 get '/start_game' do
-	session[:player_amount] = params[:amount]
+
 	session[:player_cards] = []
 	session[:dealer_cards] = []
 
@@ -60,6 +69,27 @@ get '/start_game' do
 	erb :start_game
 end
 
+post '/game/player/hit' do
+	session[:player_cards] << session[:deck].pop
+	@player_total = calculate_total(session[:player_cards])
+	if @player_total <= 21
+		erb :start_game
+	elsif @player_total == 21
+		@sucess = "You hit Blackjack!"
+		@show_buttons = false
+		erb :start_game
+	else
+		@error = "Sorry you are busted!"
+		@show_buttons = false
+		erb :start_game
+		end
+end
+
+post '/game/player/stay' do
+	@sucess = "You have chosen to stay"
+		@show_buttons = false
+	erb :start_game
+end
 
 
 
