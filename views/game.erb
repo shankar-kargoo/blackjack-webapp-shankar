@@ -1,0 +1,12 @@
+<h4> Hello <%= session[:player_name] %> </h4>
+Deck => <%= session[:deck] %>
+<br><br>
+<%= session[:player_name] %> your cards are => <%= session[:player_cards] %>
+<br>
+Your total is <%= calculate_total(session[:player_cards]) %>
+<br><br>
+Dealer's cards are => <%= session[:dealer_cards] %>
+<br>
+Dealer total is <%= calculate_total(session[:player_cards]) %>
+<br><br>
+<%= session[:deck].size %>
