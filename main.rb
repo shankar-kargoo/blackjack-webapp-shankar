@@ -33,13 +33,17 @@ get '/' do
   erb :set_name
 end
 
-post '/set_name' do
+post '/save_name' do
 	session[:player_name] = params[:player_name]
-	redirect '/game'
+	redirect '/bet_amount'
 end
 
-get '/game' do
-	
+get '/bet_amount' do
+	erb :bet_amount
+end
+
+get '/start_game' do
+	session[:player_amount] = params[:amount]
 	session[:player_cards] = []
 	session[:dealer_cards] = []
 
@@ -53,7 +57,7 @@ get '/game' do
 	session[:player_cards] << session[:deck].pop
 	session[:dealer_cards] << session[:deck].pop
 	
-	erb :game
+	erb :start_game
 end
 
 

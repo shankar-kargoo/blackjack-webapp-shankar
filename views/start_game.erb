@@ -1,0 +1,19 @@
+
+<h4>Game Starting, Dealing Cards</h4>
+<br><br>
+<%= session[:player_name] %> your cards are => <%= session[:player_cards] %>
+<br>
+Your total is <%= calculate_total(session[:player_cards]) %>
+<br><br>
+Dealer's cards are => <%= session[:dealer_cards] %>
+<br>
+Dealer total is <%= calculate_total(session[:dealer_cards]) %>
+<br><br>
+<%= session[:deck].size %>
+
+Would you like to Hit or Stay?
+<br><br>
+<form action='/hit_stay' method='post'>
+	<button name="button" class='btn'>Hit</button>
+	<button name="button" class='btn'>Stay</button>
+</form>
