@@ -63,6 +63,7 @@ end
 before do
 	@show_buttons = true
 	@dealer_button = false
+	@hide_dealer_card = true
 end
 
 get '/' do
@@ -153,6 +154,7 @@ post '/game/player/hit' do
 end
 
 post '/game/player/stay' do
+		@hide_dealer_card =false
 		player_cards = session[:player_cards]
 		dealer_cards = session[:dealer_cards]
 		player_total = calculate_total(session[:player_cards])
@@ -182,6 +184,7 @@ post '/game/player/stay' do
 end
 
 post '/game/dealer/hit' do
+	@hide_dealer_card =false
 	session[:dealer_cards] << session[:deck].pop
 
 	player_cards = session[:player_cards]
@@ -224,11 +227,6 @@ post '/game/dealer/hit' do
 		erb :start_game
 	end
 end
-
-post '/game/player/hit' do
-	#what should happen when dealer hits
-end
-
 
 get '/logout' do
   session.clear
