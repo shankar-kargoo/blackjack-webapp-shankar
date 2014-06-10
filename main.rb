@@ -91,6 +91,8 @@ end
 
 get '/start_game' do
 
+
+	
 	session[:player_cards] = []
 	session[:dealer_cards] = []
 
@@ -237,6 +239,7 @@ get '/restart' do
 	session[:deck] = []
 	session[:player_cards] = []
 	session[:dealer_cards] = []
-	redirect '/'
+	redirect '/start_game' 
+
 end
 
